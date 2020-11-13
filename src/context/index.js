@@ -22,13 +22,34 @@ const nextYear = `${year + 1}-${month}-${day}`;
 const popular_games = `games?dates=${lastYear},${currentDate}&ordering=-rating&page_size=10`;
 const upcoming_games = `games?dates=${currentDate},${nextYear}&ordering=-added&page_size=10`;
 const newGames = `games?dates=${lastYear},${currentDate}&ordering=-released&page_size=10`;
+const searchedGame = (query) => `games?search=${query}&page_size=10`;
 
 export const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
+  const [showModal, setShowModal] = React.useState(false);
+  const [query, setQuery] = React.useState("");
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
   return (
     <AppContext.Provider
-      value={{ API_ENDPOINT, popular_games, upcoming_games, newGames }}
+      value={{
+        API_ENDPOINT,
+        popular_games,
+        upcoming_games,
+        newGames,
+        showModal,
+        openModal,
+        closeModal,
+        query,
+        setQuery,
+        searchedGame,
+      }}
     >
       {children}
     </AppContext.Provider>

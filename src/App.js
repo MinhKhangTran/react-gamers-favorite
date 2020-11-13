@@ -6,11 +6,8 @@ function App() {
   return (
     <div className="">
       <Navbar />
-      <Route exact path="/">
+      <Route path={["/game/:id", "/"]}>
         <Home />
-      </Route>
-      <Route path="/game/:id">
-        <GameDetail />
       </Route>
     </div>
   );
