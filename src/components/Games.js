@@ -1,10 +1,28 @@
 import React from "react";
-import Game from "./Game";
+import { Game } from "./Game";
+import { useFetch } from "../hook/useFetch";
+import { Loader } from "./Loader";
+import styled from "styled-components";
 
-export const Games = () => {
+export const Games = ({ type, url }) => {
+  const { loading, games } = useFetch(url);
+  if (loading) {
+    <Loader />;
+  }
   return (
-    <div>
-      <Game />
+    <div className="w-11/12 md:w-4/5 mx-auto my-4">
+      <Title>
+        <h1 className="text-red-500 text-xl md:text-3xl mb-4">{type}</h1>
+      </Title>
+      <article className="grid md:grid-cols-2 grid-cols-1 gap-4">
+        {games.map((game) => {
+          return <Game key={game.id} {...game} />;
+        })}
+      </article>
     </div>
   );
 };
+
+const Title = styled.div`
+  font-family: "Abril Fatface", cursive;
+`;
